@@ -46,6 +46,10 @@
             ]
         };
 
+        function getResult(finalRes) {
+            console.log(finalRes); 
+        }
+
         const condition = Math.ceil(Math.random() * 10) < 8;
 
         function createOrder(menuItem, callback) {
@@ -70,26 +74,25 @@
                     } else {
                         result.push(rejectedResult);
                     }
+
+                    if (result.length === menuItem.length) {
+                        const newResult = [];
+                        menuItem.forEach(({ name }) => {
+                            const a = result.find(el => el.value === name);
+                            newResult.push(a);
+                        })
+                        callback(newResult);
+                    }
+
+
                 }, time)
             })
-
-
-            callback = setTimeout(() => {
-                const newResult = [];
-                menuItem.forEach(({ name }) => {
-                    const a = result.find(el => el.value === name);
-                    newResult.push(a);
-                })
-                console.log(newResult);
-            }, 5050);
 
         }
 
 
 
-        const res = createOrder(menuList.burger);
-
-
+        const res = createOrder(menuList.avocado, getResult);
 
 
 
