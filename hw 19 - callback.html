@@ -1,0 +1,97 @@
+<body>
+    <script>
+
+        const menuList = {
+            burger: [
+                {
+                    name: '🍔',
+                    time: 3000
+                },
+                {
+                    name: '🍟',
+                    time: 1000
+                },
+                {
+                    name: '🥤',
+                    time: 500
+                }
+            ],
+            chicken: [
+                {
+                    name: '🍗',
+                    time: 5000
+                },
+                {
+                    name: '🥔',
+                    time: 2000
+                },
+                {
+                    name: '🍺',
+                    time: 1500
+                }
+            ],
+            avocado: [
+                {
+                    name: '🥑',
+                    time: 3000
+                },
+                {
+                    name: '🍚',
+                    time: 5000
+                },
+                {
+                    name: '🧉',
+                    time: 2000
+                }
+            ]
+        };
+
+        const condition = Math.ceil(Math.random() * 10) < 8;
+
+        function createOrder(menuItem, callback) {
+            console.log('Start cooking order...');
+
+            const result = [];
+
+            menuItem.forEach(({ name, time }) => {
+                setTimeout(() => {
+                    const fulfilledResult = {
+                        status: 'fulfilled',
+                        value: name
+                    };
+
+                    const rejectedResult = {
+                        status: 'rejected',
+                        reason: name
+                    };
+
+                    if (condition) {
+                        result.push(fulfilledResult);
+                    } else {
+                        result.push(rejectedResult);
+                    }
+                }, time)
+            })
+
+
+            callback = setTimeout(() => {
+                const newResult = [];
+                menuItem.forEach(({ name }) => {
+                    const a = result.find(el => el.value === name);
+                    newResult.push(a);
+                })
+                console.log(newResult);
+            }, 5050);
+
+        }
+
+
+
+        const res = createOrder(menuList.burger);
+
+
+
+
+
+    </script>
+</body>
